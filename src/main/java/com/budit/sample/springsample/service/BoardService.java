@@ -31,4 +31,9 @@ public class BoardService {
         List<Board> list = boardRepository.findAll();
         return list.stream().map(e -> mapper.map(e, BoardVo.class)).collect(Collectors.toList());
     }
+
+    public BoardVo get(long id) {
+        Board board = boardRepository.getById(id);
+        return mapper.map(board, BoardVo.class);
+    }
 }

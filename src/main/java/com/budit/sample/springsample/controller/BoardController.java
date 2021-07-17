@@ -42,4 +42,16 @@ public class BoardController {
         resp.setData(list);
         return resp;
     }
+
+    @ApiOperation(value = "게시글 조회", notes = "<big>게시글</big>을 조회한다.")
+    @GetMapping("/{id}")
+    public ResponseVo<BoardVo> getBoard(@PathVariable long id) {
+        log.info("id: " + id);
+        BoardVo vo = boardService.get(id);
+        ResponseVo<BoardVo> resp = new ResponseVo<>();
+        resp.setRespCode("0000");
+        resp.setRespMsg("정상");
+        resp.setData(vo);
+        return resp;
+    }
 }
