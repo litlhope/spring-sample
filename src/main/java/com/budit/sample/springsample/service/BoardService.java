@@ -19,12 +19,26 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final ModelMapper mapper;
 
+    // Insert
     public BoardVo save(BoardParam param) {
-        Board board = mapper.map(param, Board.class);
-        log.info("board save: " + board);
-        board = boardRepository.save(board);
-        log.info("saved board: " + board);
+        Board board = boardRepository.save(mapper.map(param, Board.class));
         return mapper.map(board, BoardVo.class);
+    }
+
+    // Update
+    public BoardVo save(BoardVo vo) {
+        Board board = boardRepository.save(mapper.map(vo, Board.class));
+        return mapper.map(board, BoardVo.class);
+    }
+
+    public int delete(long id) {
+        try {
+            boardRepository.deleteById(id);
+        } catch (Exception ex) {
+            log.warn("게시글 삭제 실패", ex);
+            return 0;
+        }
+        return 1;
     }
 
     public List<BoardVo> getAll() {
