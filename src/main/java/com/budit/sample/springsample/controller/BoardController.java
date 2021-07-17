@@ -8,10 +8,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,6 +29,17 @@ public class BoardController {
         resp.setRespCode("0000");
         resp.setRespMsg("정상");
         resp.setData(vo);
+        return resp;
+    }
+
+    @ApiOperation(value = "게시글 전체 조회", notes = "<big>게시글</big> 전체 목록을 조회한다.")
+    @GetMapping("")
+    public ResponseVo<List<BoardVo>> getBoardAll() {
+        List<BoardVo> list = boardService.getAll();
+        ResponseVo<List<BoardVo>> resp = new ResponseVo<>();
+        resp.setRespCode("0000");
+        resp.setRespMsg("정상");
+        resp.setData(list);
         return resp;
     }
 }
